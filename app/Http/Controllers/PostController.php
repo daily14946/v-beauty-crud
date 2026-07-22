@@ -7,85 +7,44 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /**
-     * Menampilkan seluruh data post.
-     */
     public function index()
     {
         $posts = Post::all();
         return view('posts.index', compact('posts'));
     }
 
-    /**
-     * Menampilkan form tambah post.
-     */
     public function create()
     {
         return view('posts.create');
     }
 
-    /**
-     * Menyimpan data post baru.
-     */
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-        ]);
+        Post::create($request->all());
 
-        Post::create([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-        ]);
-
-        return redirect()->route('posts.index')
-            ->with('success', 'Post berhasil ditambahkan.');
+        return redirect('/posts')->with('success', 'Data berhasil ditambahkan');
     }
 
-    /**
-     * Menampilkan detail post.
-     */
-    public function show(Post $post)
+    public function edit($id)
     {
-        return view('posts.show', compact('post'));
-    }
+        $post = Post::findOrFail($id);
 
-    /**
-     * Menampilkan form edit.
-     */
-    public function edit(Post $post)
-    {
         return view('posts.edit', compact('post'));
     }
 
-    /**
-     * Mengupdate data post.
-     */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'judul' => 'required|string|max:255',
-            'isi' => 'required|string',
-        ]);
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
 
-        $post->update([
-            'judul' => $request->judul,
-            'isi' => $request->isi,
-        ]);
-
-        return redirect()->route('posts.index')
-            ->with('success', 'Post berhasil diperbarui.');
+        return redirect('/posts')->with('success', 'Data berhasil diupdate');
     }
 
-    /**
-     * Menghapus data post.
-     */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::findOrFail($id);
         $post->delete();
 
-        return redirect()->route('posts.index')
-            ->with('success', 'Post berhasil dihapus.');
+        return redirect('/posts')->with('success', 'Data berhasil dihapus');
     }
 }

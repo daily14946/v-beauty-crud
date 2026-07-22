@@ -1,29 +1,81 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
 
-@section('title', 'Tambah Post')
+<title>Tambah Produk</title>
 
-@section('content')
-<h2>Tambah Post</h2>
+<style>
 
-<form action="{{ route('posts.store') }}" method="POST">
-    @csrf
+body{
+    font-family:Arial;
+    background:#ffeef7;
+}
 
-    <div class="mb-3">
-        <label>Judul</label>
-        <input type="text" name="judul" class="form-control">
-    </div>
+.container{
+    width:600px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.1);
+}
 
-    <div class="mb-3">
-        <label>Isi</label>
-        <textarea name="isi" class="form-control" rows="5"></textarea>
-    </div>
+h2{
+    text-align:center;
+    color:#e91e63;
+}
 
-    <button type="submit" class="btn btn-primary">
-        Simpan
-    </button>
+input,textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
 
-    <a href="{{ route('posts.index') }}" class="btn btn-secondary">
-        Kembali
-    </a>
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff5fa2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e91e63;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Tambah Produk</h2>
+
+<form action="/posts" method="POST">
+
+@csrf
+
+<label>Judul</label>
+
+<input type="text" name="judul">
+
+<label>Isi</label>
+
+<textarea name="isi"></textarea>
+
+<button>Simpan</button>
+
 </form>
-@endsection
+
+</div>
+
+</body>
+</html>

@@ -1,30 +1,90 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
 
-@section('title', 'Edit Post')
+<head>
 
-@section('content')
-<h2>Edit Post</h2>
+<title>Edit Produk</title>
 
-<form action="{{ route('posts.update', $post->id) }}" method="POST">
-    @csrf
-    @method('PUT')
+<style>
 
-    <div class="mb-3">
-        <label>Judul</label>
-        <input type="text" name="judul" class="form-control" value="{{ $post->judul }}">
-    </div>
+body{
+    font-family:Arial;
+    background:#ffeef7;
+}
 
-    <div class="mb-3">
-        <label>Isi</label>
-        <textarea name="isi" class="form-control" rows="5">{{ $post->isi }}</textarea>
-    </div>
+.container{
+    width:600px;
+    margin:50px auto;
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 20px rgba(0,0,0,.1);
+}
 
-    <button type="submit" class="btn btn-primary">
-        Update
-    </button>
+h2{
+    text-align:center;
+    color:#e91e63;
+}
 
-    <a href="{{ route('posts.index') }}" class="btn btn-secondary">
-        Kembali
-    </a>
+input,textarea{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#ff5fa2;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e91e63;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Edit Produk</h2>
+
+<form action="/posts/{{ $post->id }}" method="POST">
+
+@csrf
+@method('PUT')
+
+<label>Judul</label>
+
+<input
+type="text"
+name="judul"
+value="{{ $post->judul }}"
+>
+
+<label>Isi</label>
+
+<textarea
+name="isi"
+rows="5"
+>{{ $post->isi }}</textarea>
+
+<button>Update Produk</button>
+
 </form>
-@endsection
+
+</div>
+
+</body>
+</html>
